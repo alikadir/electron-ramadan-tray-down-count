@@ -1,0 +1,11 @@
+{
+  "name": "mobile-team-ramadan",
+  "version": "1.0.0",
+  "description": "Mobil Ekip Ramazan Uygulamasi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ali Kadir",
+  "license": "ISC"
+}

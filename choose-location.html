@@ -1,0 +1,94 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+
+
+</head>
+
+<body>
+    <h1>Deneme Sayfa</h1>
+    <span id="loading">yukleniyor...</span>
+    <p>Ulke
+        <select id="country" onchange="loadCity()"></select>
+    </p>
+    <p>Sehir
+        <select id="city"></select>
+    </p>
+    <p>Ilce
+        <select id="district"></select>
+    </p>
+    <p>
+        <button type="button">Tamam</button>
+    </p>
+
+
+    <script>
+
+        function loadCity() {
+
+            let cbxCountryId = document.getElementById('country').value;
+            let cbxCity = document.getElementById('city');
+
+            this.loadingOpen();
+
+            fetch('http://ezanvakti.herokuapp.com/sehirler?ulke=' + cbxCountryId).then((data) => data.json()).then((data) => {
+
+                while (cbxCity.options.length) {
+                    cbxCity.remove(0);
+                }
+
+                data.forEach(item => {
+                    let option = document.createElement("option");
+                    option.text = item.SehirAdi;
+                    option.value = item.SehirID;
+                    cbxCity.add(option);
+                });
+
+                this.loadingClose();
+
+            });
+
+
+
+        }
+
+        function loadCountry() {
+            this.loadingOpen();
+
+            fetch('http://ezanvakti.herokuapp.com/ulkeler').then((data) => data.json()).then((data) => {
+
+                let cbxCountry = document.getElementById('country');
+
+                data.forEach(item => {
+                    let option = document.createElement("option");
+                    option.text = item.UlkeAdi;
+                    option.value = item.UlkeID;
+                    cbxCountry.add(option);
+                });
+
+                this.loadingClose();
+
+            });
+        }
+
+
+
+        loadCountry();
+
+        function loadingOpen() {
+            document.getElementById('loading').style.visibility = "visible";
+        }
+        function loadingClose() {
+            document.getElementById('loading').style.visibility = "hidden";
+        }
+
+    </script>
+
+</body>
+
+</html>
